@@ -1,0 +1,11 @@
+
+CREATE DATABASE jwt_auth_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+USE jwt_auth_db;
+
+CREATE TABLE user (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(50) DEFAULT 'USER'
+);
