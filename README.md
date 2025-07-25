@@ -106,6 +106,8 @@ npm run dev
 
 4. The frontend app will be accessible at `http://localhost:3000`.
 
+5. The Frontend Repository app will be accessible at  [Frontend](https://github.com/miladrostami-devjava/FullStack-Project2-JWT-Auth-Part-Frontend-Tag2)
+
 ---
 
 ## Important References and Documentation

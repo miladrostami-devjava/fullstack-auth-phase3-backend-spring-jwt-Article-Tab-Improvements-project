@@ -4,7 +4,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/jwt_auth_db
     username: root
-    password: yourpassword
+    password: Milad13711992*
   jpa:
     hibernate:
       ddl-auto: update
