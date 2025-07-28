@@ -4,12 +4,8 @@ package com.security.controller;
 import com.security.dto.AuthRequest;
 import com.security.dto.AuthResponse;
 import com.security.dto.RegisterRequest;
-import com.security.dto.request.LoginRequest;
-import com.security.dto.response.LoginResponse;
 import com.security.service.AuthService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,16 +26,15 @@ public class AuthController {
 
 
     @PostMapping("/register")
-    public void register (@RequestBody RegisterRequest request){
+    public void register(@RequestBody RegisterRequest request) {
         authService.register(request);
     }
 
 
-
     @PostMapping("/login")
-    public AuthResponse login(@RequestBody AuthRequest request){
+    public AuthResponse login(@RequestBody AuthRequest request) {
 
-return authService.login(request);
+        return authService.login(request);
     }
 
 

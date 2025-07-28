@@ -45,7 +45,25 @@ public class JwtService {
                 .setExpiration(expiry)
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
+
+
     }
+
+
+
+
+   /* public String extractUsername(String token){
+
+        return Jwts.parserBuilder()
+                .setSigningKey(jwtSecret.getBytes())
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
+
+
+    }*/
+
 
     public String extractUsername(String token) {
         if (token == null || token.trim().isEmpty()) {
@@ -63,6 +81,26 @@ public class JwtService {
             return null;
         }
     }
+
+
+
+   /* public boolean isTokenValid(String token){
+
+        try {
+            Jwts.parserBuilder()
+                    .setSigningKey(jwtSecret.getBytes())
+                    .build()
+                    .parseClaimsJws(token);
+            return true;
+
+
+        }catch (JwtException e){
+            return false;
+        }
+
+
+    }*/
+
 
     public boolean isTokenValid(String token) {
         if (token == null || token.trim().isEmpty()) {

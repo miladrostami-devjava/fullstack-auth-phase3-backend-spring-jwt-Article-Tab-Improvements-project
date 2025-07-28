@@ -1,13 +1,9 @@
 package com.security.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+
 
 @Entity
-
-@NoArgsConstructor
-@AllArgsConstructor
-
 public class User {
 
     @Id
@@ -16,8 +12,30 @@ public class User {
     @Column(unique = true)
     private String username;
     private String password;
+    private String email;
+    private String profilePhoto;
     private String role;
 
+
+    public User() {
+    }
+
+    public User(String username, String password, String email, String profilePhoto, String role) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.profilePhoto = profilePhoto;
+        this.role = role;
+    }
+
+    public User(Long id, String username, String password, String email, String profilePhoto, String role) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.profilePhoto = profilePhoto;
+        this.role = role;
+    }
 
     public Long getId() {
         return id;
@@ -49,5 +67,21 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getProfilePhoto() {
+        return profilePhoto;
+    }
+
+    public void setProfilePhoto(String profilePhoto) {
+        this.profilePhoto = profilePhoto;
     }
 }

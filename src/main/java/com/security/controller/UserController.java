@@ -1,21 +1,27 @@
 package com.security.controller;
 
+import com.security.dto.UserDto;
+import com.security.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-
-
-@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
 
-    @GetMapping("/profile")
-    public String profile() {
-        return "You are authenticated!";
+    private final UserService userService;
+
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
+    @GetMapping("/profile")
+    public ResponseEntity<UserDto> profile(Authentication authentication) {
+        String username = authentication.getName();
+        UserDto userDto = userService.getProfileByUsername(username);
+        return ResponseEntity.ok(userDto);
+    }
 }
