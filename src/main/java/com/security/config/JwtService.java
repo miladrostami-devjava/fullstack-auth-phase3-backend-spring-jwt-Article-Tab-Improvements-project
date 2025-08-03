@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
@@ -33,6 +34,7 @@ public class JwtService {
 
 
 
+/*
     public String generateToken(String username){
         Date now = new Date();
         Date expiry = new Date(now.getTime() + jwtExpiration);
@@ -46,6 +48,24 @@ public class JwtService {
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
+*/
+
+
+
+    public String generateToken(String email){
+        Date now = new Date();
+        Date expiry = new Date(now.getTime() + jwtExpiration);
+
+        Key key = Keys.hmacShaKeyFor(jwtSecret.getBytes());
+
+        return Jwts.builder()
+                .setSubject(email)
+                .setIssuedAt(now)
+                .setExpiration(expiry)
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact();
+    }
+
 
     public String extractUsername(String token) {
         if (token == null || token.trim().isEmpty()) {
@@ -80,6 +100,11 @@ public class JwtService {
         }
     }
 
+    public boolean isTokenValid(String token, UserDetails userDetails) {
+        final String username = extractUsername(token);
+        return username != null && username.equals(userDetails.getUsername()) && !isTokenExpired(token);
+    }
+
 
 
     /**
@@ -96,6 +121,11 @@ public class JwtService {
         } catch (JwtException e) {
             return null;
         }
+    }
+
+    public boolean isTokenExpired(String token) {
+        Date expiration = extractExpiration(token);
+        return expiration == null || expiration.before(new Date());
     }
 
 }

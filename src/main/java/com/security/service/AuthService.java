@@ -41,6 +41,8 @@ public class AuthService {
         var user = new User();
         user.setUsername(registerRequest.username());
         user.setPassword(encoder.encode(registerRequest.password()));
+        user.setEmail(registerRequest.email());
+        user.setProfilePhoto(registerRequest.profilePhoto());
         user.setRole("USER");
         userRepository.save(user);
 

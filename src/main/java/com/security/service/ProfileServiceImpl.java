@@ -9,6 +9,7 @@ import com.security.dto.profile.UpdateProfileRequest;
 import com.security.entity.User;
 import com.security.repository.UserRepository;
 
+import jakarta.transaction.Transactional;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -29,16 +30,24 @@ public class ProfileServiceImpl implements ProfileService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @Override
+/*    @Override
     public UserDto getProfile(String email) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         return new UserDto(user.getUsername(), user.getEmail(), user.getRole(), user.getProfilePhoto());
-    }
+    }*/
+@Override
+public UserDto getProfile(String username) {
+    User user = userRepository.findByUsername(username)
+            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+    return new UserDto(user.getUsername(), user.getEmail(), user.getRole(), user.getProfilePhoto());
+}
+
 
     @Override
-    public void updateProfile(String email, UpdateProfileRequest request) {
-        User user = userRepository.findByEmail(email)
+    public void updateProfile(String username, UpdateProfileRequest request) {
+        User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
@@ -46,8 +55,8 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public boolean changePassword(String email, ChangePasswordRequest request) {
-        User user = userRepository.findByEmail(email)
+    public boolean changePassword(String username, ChangePasswordRequest request) {
+        User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         if (!passwordEncoder.matches(request.getOldPassword(), user.getPassword())) {
@@ -59,19 +68,47 @@ public class ProfileServiceImpl implements ProfileService {
         return true;
     }
 
+
     @Override
-    public void deleteAccount(String email) {
-        userRepository.deleteByEmail(email);
+    @Transactional
+    public void deleteAccount(String username) {
+        userRepository.deleteByUsername(username);
     }
 
-    @Override
-    public void uploadPhoto(String email, MultipartFile file) throws IOException {
-        User user = userRepository.findByEmail(email)
+/*    @Override
+    public void uploadPhoto(String username, MultipartFile file) throws IOException {
+        User user =  userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        String filePath = "uploads/" + file.getOriginalFilename();
+      //  String filePath = "uploads/" + file.getOriginalFilename();
+        String uploadDir = System.getProperty("user.dir") + "/uploads";
+        File dir = new File(uploadDir);
+        if (!dir.exists()) dir.mkdirs(); // در صورت نبود پوشه آن را می‌سازد
+
+        String filePath = uploadDir + "/" + file.getOriginalFilename();
+        file.transferTo(new File(filePath));
+
         file.transferTo(new File(filePath));
         user.setProfilePhoto(filePath);
         userRepository.save(user);
+    }*/
+
+    @Override
+    public void uploadPhoto(String username, MultipartFile file) throws IOException {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        String uploadDir = System.getProperty("user.dir") + "/uploads";
+        File dir = new File(uploadDir);
+        if (!dir.exists()) dir.mkdirs();
+
+        String filename = file.getOriginalFilename();
+        String filePath = uploadDir + "/" + filename;
+        file.transferTo(new File(filePath));
+
+        user.setProfilePhoto(filename); // ذخیره فقط نام فایل
+        userRepository.save(user);
     }
+
+
 }

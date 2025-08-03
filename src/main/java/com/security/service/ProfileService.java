@@ -8,9 +8,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 public interface ProfileService {
-    UserDto getProfile(String email);
-    void updateProfile(String email, UpdateProfileRequest request);
-    boolean changePassword(String email, ChangePasswordRequest request);
-    void deleteAccount(String email);
-    void uploadPhoto(String email, MultipartFile file) throws IOException;
+    UserDto getProfile(String username);
+    void updateProfile(String username, UpdateProfileRequest request);
+    boolean changePassword(String username, ChangePasswordRequest request);
+    void deleteAccount(String username);
+    void uploadPhoto(String username, MultipartFile file) throws IOException;
 }
