@@ -49,8 +49,11 @@ Proper HTTP status codes and error messages should be sent back to the client fo
 Spring Boot’s @Valid, @Email, and @NotBlank annotations can be used, but complex rules often require manual validation logic.
 
 
+# Backend Project
+[Backend Project Repository](https://github.com/miladrostami-devjava/fullstack-auth-phase2-backend-spring-jwt-Validation-Improvements-project-)
 
-
+# Frontend Project
+[Frontend Project Repository](https://github.com/miladrostami-devjava/fullstack-auth-phase2-frontend-nextjs-Validation-Improvements-project)
 
 
 # Getting Started
