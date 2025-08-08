@@ -5,6 +5,7 @@ import com.security.dto.UserDto;
 import com.security.dto.profile.ChangePasswordRequest;
 import com.security.dto.profile.UpdateProfileRequest;
 import com.security.service.ProfileService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -41,7 +42,7 @@ public class ProfileController {
 
     @PreAuthorize("hasRole('USER')")
     @PutMapping
-    public ResponseEntity<String> updateProfile(Authentication auth, @RequestBody UpdateProfileRequest request) {
+    public ResponseEntity<String> updateProfile(Authentication auth,@Valid @RequestBody UpdateProfileRequest request) {
         System.out.println("AUTH: " + auth.getName()); // این باید نام کاربری یا ایمیل درست رو چاپ کنه
 
         profileService.updateProfile(auth.getName(), request);
@@ -49,7 +50,7 @@ public class ProfileController {
     }
 
     @PutMapping("/password")
-    public ResponseEntity<String> changePassword(Authentication auth, @RequestBody ChangePasswordRequest request) {
+    public ResponseEntity<String> changePassword(Authentication auth,@Valid @RequestBody ChangePasswordRequest request) {
         boolean result = profileService.changePassword(auth.getName(), request);
         return result ? ResponseEntity.ok("Password updated") :
                 ResponseEntity.status(HttpStatus.FORBIDDEN).body("Incorrect current password");
@@ -62,7 +63,7 @@ public class ProfileController {
     }
 
     @PostMapping("/photo")
-    public ResponseEntity<String> uploadPhoto(Authentication auth, @RequestParam("file") MultipartFile file) throws IOException {
+    public ResponseEntity<String> uploadPhoto(Authentication auth,@Valid @RequestParam("file") MultipartFile file) throws IOException {
         profileService.uploadPhoto(auth.getName(), file);
         return ResponseEntity.ok("Photo uploaded");
     }

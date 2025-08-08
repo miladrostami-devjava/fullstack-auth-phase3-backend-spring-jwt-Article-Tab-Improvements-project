@@ -1,9 +1,13 @@
 package com.security.dto.profile;
 
+import jakarta.validation.constraints.NotBlank;
+
 import java.util.Objects;
 
 public class UpdateProfileRequest {
+    @NotBlank(message = "Username is required")
     private String username;
+    @NotBlank(message = "Email  is required")
     private String email;
 
     public UpdateProfileRequest() {

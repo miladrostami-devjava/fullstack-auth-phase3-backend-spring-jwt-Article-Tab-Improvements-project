@@ -1,9 +1,14 @@
 package com.security.dto.profile;
 
+import jakarta.validation.constraints.NotBlank;
+
 import java.util.Objects;
 
 public class ChangePasswordRequest {
+
+    @NotBlank(message = "Old Password is required")
     private String oldPassword;
+    @NotBlank(message = "New Password is required")
     private String newPassword;
 
     public ChangePasswordRequest() {

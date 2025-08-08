@@ -1,11 +1,15 @@
 package com.security.dto.request;
 
 
+import jakarta.validation.constraints.NotBlank;
+
 import java.util.Objects;
 
 public class LoginRequest {
 
+    @NotBlank(message = "Username is required")
     private String username;
+    @NotBlank(message = "Password is required")
     private String password;
 
     public LoginRequest() {
