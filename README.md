@@ -108,7 +108,8 @@ This project is a modern web application for managing user profiles, developed i
 ## Installation and Setup
 1. **Clone the Repositories**:
    ```bash
-   git clone https://github.com/miladrostami-devjava/fullstack-auth-phase3-backend
+   git clone https://github.com/miladrostami-devjava/fullstack-auth-phase3-backend-spring-jwt-Article-Tab-Improvements-project
+
    git clone https://github.com/miladrostami-devjava/fullstack-auth-phase3-frontend-nextjs-Article-Tab-Improvements-project
    ```
 
@@ -178,7 +179,11 @@ This project is a modern web application for managing user profiles, developed i
 
 ## Contributing
 To contribute, please create a Pull Request or report issues in the respective repositories:
-- Backend: [fullstack-auth-phase3-backend](https://github.com/miladrostami-devjava/fullstack-auth-phase3-backend)
+- Backend: [fullstack-auth-phase3-backend](https://github.com/miladrostami-devjava/fullstack-auth-phase3-backend-spring-jwt-Article-Tab-Improvements-project)
+
+
+
+)
 - Frontend: [fullstack-auth-phase3-frontend-nextjs](https://github.com/miladrostami-devjava/fullstack-auth-phase3-frontend-nextjs-Article-Tab-Improvements-project)
 
 
