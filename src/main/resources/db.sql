@@ -34,4 +34,23 @@ CREATE TABLE user (
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 
+
+
+
+-- phase-3 : added articles management
+
+CREATE TABLE articles (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    user_id BIGINT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+
+select * from  articles;
 select * from user where username = 'milad';
+
+select * from user 

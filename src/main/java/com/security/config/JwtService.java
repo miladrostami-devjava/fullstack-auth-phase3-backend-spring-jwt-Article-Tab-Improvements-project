@@ -32,26 +32,6 @@ public class JwtService {
         return Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
     }
 
-
-
-/*
-    public String generateToken(String username){
-        Date now = new Date();
-        Date expiry = new Date(now.getTime() + jwtExpiration);
-
-        Key key = Keys.hmacShaKeyFor(jwtSecret.getBytes());
-
-        return Jwts.builder()
-                .setSubject(username)
-                .setIssuedAt(now)
-                .setExpiration(expiry)
-                .signWith(key, SignatureAlgorithm.HS256)
-                .compact();
-    }
-*/
-
-
-
     public String generateToken(String email){
         Date now = new Date();
         Date expiry = new Date(now.getTime() + jwtExpiration);

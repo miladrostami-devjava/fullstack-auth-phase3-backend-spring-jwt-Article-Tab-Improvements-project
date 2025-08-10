@@ -30,12 +30,7 @@ public class ProfileServiceImpl implements ProfileService {
         this.passwordEncoder = passwordEncoder;
     }
 
-/*    @Override
-    public UserDto getProfile(String email) {
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        return new UserDto(user.getUsername(), user.getEmail(), user.getRole(), user.getProfilePhoto());
-    }*/
+
 @Override
 public UserDto getProfile(String username) {
     User user = userRepository.findByUsername(username)
@@ -75,23 +70,6 @@ public UserDto getProfile(String username) {
         userRepository.deleteByUsername(username);
     }
 
-/*    @Override
-    public void uploadPhoto(String username, MultipartFile file) throws IOException {
-        User user =  userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-
-      //  String filePath = "uploads/" + file.getOriginalFilename();
-        String uploadDir = System.getProperty("user.dir") + "/uploads";
-        File dir = new File(uploadDir);
-        if (!dir.exists()) dir.mkdirs(); // در صورت نبود پوشه آن را می‌سازد
-
-        String filePath = uploadDir + "/" + file.getOriginalFilename();
-        file.transferTo(new File(filePath));
-
-        file.transferTo(new File(filePath));
-        user.setProfilePhoto(filePath);
-        userRepository.save(user);
-    }*/
 
     @Override
     public void uploadPhoto(String username, MultipartFile file) throws IOException {
@@ -108,6 +86,13 @@ public UserDto getProfile(String username) {
 
         user.setProfilePhoto(filename); // ذخیره فقط نام فایل
         userRepository.save(user);
+    }
+
+    @Override
+    public Long getUserIdByUsername(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return user.getId();
     }
 
 

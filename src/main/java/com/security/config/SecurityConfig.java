@@ -30,25 +30,6 @@ public class SecurityConfig {
         return new JwtAuthenticationFilter(jwtService, userDetailsService);
     }
 
-    // زنجیره‌ی فیلترهای امنیتی
- /*   @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthenticationFilter jwtFilter) throws Exception {
-        return http
-                .csrf(AbstractHttpConfigurer::disable)
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/api/user/**", "/api/profile/**").authenticated()
-                        .requestMatchers("/api/profile/photo/**").permitAll() // یا authenticated() اگه نیاز به توکن هست
-                        .anyRequest().authenticated()
-                )
-                .securityMatcher("/api/profile/photo/**") // حذف security فقط برای این مسیر
-                .csrf(AbstractHttpConfigurer::disable)
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-                .build();
-    }*/
-
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthenticationFilter jwtFilter) throws Exception {
@@ -63,16 +44,9 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
 
-
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
-
-
-
-
-
-
 
     // پیکربندی CORS
     @Bean

@@ -13,4 +13,6 @@ public interface ProfileService {
     boolean changePassword(String username, ChangePasswordRequest request);
     void deleteAccount(String username);
     void uploadPhoto(String username, MultipartFile file) throws IOException;
+    Long getUserIdByUsername(String username);
+
 }
